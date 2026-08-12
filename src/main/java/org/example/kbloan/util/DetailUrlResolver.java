@@ -31,7 +31,10 @@ public final class DetailUrlResolver {
             urls.add(product.detailUrl());
         }
 
-        if (product.productCode() != null
+        // 접두사는 목록 모드에서만 설정된다.
+        // 상세 URL 을 직접 지정한 경우엔 없어도 되므로, 있을 때만 예비 후보를 만든다.
+        if (urlSettings.hasDetailPrefixes()
+                && product.productCode() != null
                 && !product.productCode().isBlank()) {
             urls.add(urlSettings.detailUrlFor(product.productCode()));
             urls.add(urlSettings.newDetailUrlFor(product.productCode()));

@@ -55,6 +55,20 @@ public final class KbLoanCrawlerApplication {
         }
 
         CrawlUrlSettings urlSettings = CrawlUrlSettings.fromSystemProperties();
+
+        // 주소 기본값을 코드에 두지 않는다. 설정이 빠지면 엉뚱한 주소를 긁는 대신
+        // 여기서 멈춰서 무엇이 없는지 알려준다.
+        List<String> missingUrlKeys = urlSettings.missingKeys();
+        if (!missingUrlKeys.isEmpty()) {
+            System.err.println(
+                    "KB 주소 설정이 없습니다. application.properties에 "
+                            + String.join(", ", missingUrlKeys)
+                            + " 를 채워주세요."
+            );
+            System.exit(1);
+            return;
+        }
+
         System.out.printf(
                 "수집 대상 주소: %s%n",
                 urlSettings.hasTargetDetailUrl()
