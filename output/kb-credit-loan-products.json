@@ -1,0 +1,76 @@
+{
+  "sourceUrl" : "https://obank.kbstar.com/quics?page=C103429&cc=b104363%3Ab104516&isNew=N&prcode=LN20001397&QSL=F",
+  "collectedAt" : "2026-08-04T01:36:11.970810Z",
+  "discoveredProductCount" : 1,
+  "targetProductCount" : 1,
+  "collectionWarnings" : [ ],
+  "products" : [ {
+    "product" : {
+      "productCode" : "LN20001397",
+      "productName" : "KB스타 신용대출Ⅱ",
+      "description" : "증빙소득이 발생하는 직장인을 위한 비대면 신용대출",
+      "joinChannel" : "스타뱅킹",
+      "limitText" : "최대 3.5억원",
+      "detailUrl" : "https://obank.kbstar.com/quics?page=C103429&cc=b104363%3Ab104516&isNew=N&prcode=LN20001397&QSL=F",
+      "discoveryMethod" : "DIRECT_DETAIL_URL"
+    },
+    "collectedAt" : "2026-08-04T01:36:11.966793700Z",
+    "eligibilityRawText" : "개인신용평가시스템(CSS)에 의해 대출적격자로 판정된 고객으로 직군별 재직기간 기준을 충족하고, 소득증빙이 가능한 직장인\n☞ 재직기간은 현직장 재직기간만 인정하며, 전직장 재직기간은 인정하지 않음\n☞ 건강보험자격득실확인서로 재직을 확인할 수 있는 근로소득자만 대상으로 함",
+    "preferentialRawText" : "",
+    "rateRows" : [ {
+      "rateCategory" : "",
+      "rateType" : "CD 91일물",
+      "baseRate" : 2.93,
+      "spreadRate" : 2.47,
+      "preferentialRate" : 0.90,
+      "minimumRate" : 4.50,
+      "maximumRate" : 5.40,
+      "rawColumns" : {
+        "금리유형" : "CD 91일물",
+        "기준금리" : "2.93",
+        "가산금리" : "2.47",
+        "우대금리" : "0.90",
+        "최저금리" : "4.50",
+        "최고금리" : "5.40"
+      }
+    }, {
+      "rateCategory" : "",
+      "rateType" : "금융채6개월",
+      "baseRate" : 3.25,
+      "spreadRate" : 2.46,
+      "preferentialRate" : 0.90,
+      "minimumRate" : 4.81,
+      "maximumRate" : 5.71,
+      "rawColumns" : {
+        "금리유형" : "금융채6개월",
+        "기준금리" : "3.25",
+        "가산금리" : "2.46",
+        "우대금리" : "0.90",
+        "최저금리" : "4.81",
+        "최고금리" : "5.71"
+      }
+    }, {
+      "rateCategory" : "",
+      "rateType" : "금융채12개월",
+      "baseRate" : 3.69,
+      "spreadRate" : 2.45,
+      "preferentialRate" : 0.90,
+      "minimumRate" : 5.24,
+      "maximumRate" : 6.14,
+      "rawColumns" : {
+        "금리유형" : "금융채12개월",
+        "기준금리" : "3.69",
+        "가산금리" : "2.45",
+        "우대금리" : "0.90",
+        "최저금리" : "5.24",
+        "최고금리" : "6.14"
+      }
+    } ],
+    "preferentialItems" : [ ],
+    "validation" : {
+      "status" : "WARNING",
+      "errors" : [ ],
+      "warnings" : [ "구조화된 우대금리 항목을 찾지 못했습니다." ]
+    }
+  } ]
+}

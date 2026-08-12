@@ -1,0 +1,82 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'org.example'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// 빌드 시점의 git 커밋 해시를 build-info.properties 에 박는다.
+// crawl_batch.crawler_version 에 들어가, 값이 이상해졌을 때
+// 우리 코드가 바뀐 건지 KB가 바뀐 건지를 가르는 근거가 된다.
+// git 저장소가 아니면 'unknown' 이 되고, BuildInfo 가 이를 null 로 바꾼다.
+def gitSha = 'unknown'
+try {
+    def process = ['git', 'describe', '--always', '--dirty'].execute(null, projectDir)
+    process.waitFor()
+    if (process.exitValue() == 0) {
+        def output = process.text.trim()
+        if (!output.isEmpty()) {
+            gitSha = output
+        }
+    }
+} catch (Exception ignored) {
+    // git 이 없는 환경에서도 빌드는 되어야 한다
+}
+
+tasks.named('processResources') {
+    inputs.property 'gitSha', gitSha
+    filesMatching('build-info.properties') {
+        expand(gitSha: gitSha)
+    }
+}
+
+dependencies {
+    implementation 'com.microsoft.playwright:playwright:1.60.0'
+    implementation 'org.jsoup:jsoup:1.22.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    implementation 'com.mysql:mysql-connector-j:8.4.0'
+
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // Gradle 9 부터는 런처를 테스트 런타임에 명시해야 JUnit Platform 이 뜬다
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+application {
+    mainClass = 'org.example.kbloan.KbLoanCrawlerApplication'
+}
+
+// run 태스크는 별도 JVM 을 띄우므로, gradlew 에 준 -Dkb.* 가 그대로는 전달되지 않는다.
+// 앱이 읽는 설정(kb.headless, kb.detailUrl, kb.executedBy, kb.db.* ...)을 넘겨준다.
+tasks.named('run') {
+    systemProperties System.getProperties().findAll { key, value ->
+        key.toString().startsWith('kb.')
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.register('playwrightInstall', JavaExec) {
+    group = 'playwright'
+    description = 'Install the Chromium browser used by Playwright.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.microsoft.playwright.CLI'
+    args 'install', 'chromium'
+}

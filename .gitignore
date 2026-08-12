@@ -1,0 +1,19 @@
+# 빌드 산출물 — distributions 안의 tar/zip 이 200MB 를 넘어 GitHub 업로드가 거부된다
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Gradle 로컬 캐시
+.gradle/
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# 접속 정보가 들어 있다. 각자 로컬에서 만들어 쓴다.
+# 공유가 필요하면 application.properties.example 을 따로 두는 편이 낫다.
+src/main/java/application.properties
