@@ -13,7 +13,3 @@ out/
 # OS
 Thumbs.db
 .DS_Store
-
-# 접속 정보가 들어 있다. 각자 로컬에서 만들어 쓴다.
-# 공유가 필요하면 application.properties.example 을 따로 두는 편이 낫다.
-src/main/java/application.properties
