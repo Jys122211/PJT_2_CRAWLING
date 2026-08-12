@@ -16,7 +16,6 @@ import org.example.kbloan.persistence.CrawlHistoryRepository;
 import org.example.kbloan.persistence.CreditLoanRateSynchronizer;
 import org.example.kbloan.persistence.DatabaseSettings;
 import org.example.kbloan.persistence.ProductSnapshotFactory;
-import org.example.kbloan.util.BuildInfo;
 import org.example.kbloan.util.PropertySource;
 
 import java.util.ArrayList;
@@ -86,7 +85,6 @@ public final class KbLoanCrawlerApplication {
                     BANK_NAME,
                     PRODUCT_CATEGORY,
                     executedBy(),
-                    BuildInfo.version(),
                     disclosureMonthForColumn(finlifeRates.disclosureMonth())
             ));
             System.out.println("배치 시작: " + batch.uuid());

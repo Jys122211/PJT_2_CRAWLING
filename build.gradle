@@ -20,31 +20,6 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-// 빌드 시점의 git 커밋 해시를 build-info.properties 에 박는다.
-// crawl_batch.crawler_version 에 들어가, 값이 이상해졌을 때
-// 우리 코드가 바뀐 건지 KB가 바뀐 건지를 가르는 근거가 된다.
-// git 저장소가 아니면 'unknown' 이 되고, BuildInfo 가 이를 null 로 바꾼다.
-def gitSha = 'unknown'
-try {
-    def process = ['git', 'describe', '--always', '--dirty'].execute(null, projectDir)
-    process.waitFor()
-    if (process.exitValue() == 0) {
-        def output = process.text.trim()
-        if (!output.isEmpty()) {
-            gitSha = output
-        }
-    }
-} catch (Exception ignored) {
-    // git 이 없는 환경에서도 빌드는 되어야 한다
-}
-
-tasks.named('processResources') {
-    inputs.property 'gitSha', gitSha
-    filesMatching('build-info.properties') {
-        expand(gitSha: gitSha)
-    }
-}
-
 dependencies {
     implementation 'com.microsoft.playwright:playwright:1.60.0'
     implementation 'org.jsoup:jsoup:1.22.2'

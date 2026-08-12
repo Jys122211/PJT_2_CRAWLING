@@ -47,8 +47,8 @@ public final class CrawlBatchRepository {
                      "INSERT INTO credit_crawling_batch_history ("
                              + "batch_uuid, bank_name, product_category, "
                              + "status, started_at, executed_by, "
-                             + "crawler_version, finlife_disclosure_month"
-                             + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                             + "finlife_disclosure_month"
+                             + ") VALUES (?, ?, ?, ?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS
              )) {
 
@@ -58,8 +58,7 @@ public final class CrawlBatchRepository {
             statement.setString(4, STATUS_RUNNING);
             statement.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
             statement.setString(6, start.executedBy());
-            setNullableString(statement, 7, start.crawlerVersion());
-            setNullableString(statement, 8, start.finlifeDisclosureMonth());
+            setNullableString(statement, 7, start.finlifeDisclosureMonth());
 
             statement.executeUpdate();
 
@@ -135,7 +134,6 @@ public final class CrawlBatchRepository {
             String bankName,
             String productCategory,
             String executedBy,
-            String crawlerVersion,
             String finlifeDisclosureMonth
     ) {
     }
